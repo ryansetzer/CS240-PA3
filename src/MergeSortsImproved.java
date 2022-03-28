@@ -9,7 +9,10 @@ public class MergeSortsImproved {
    * Merge sort the provided array using an improved merge operation.
    */
   public static <T extends Comparable<T>> void mergeSort1(T[] items) {
-
+    if (items.length <= 1) return;
+    T[] L1 = half of the items from inlist;
+    T[] L2 = other half of the items from inlist;
+    return merge(mergesort(L1), mergesort(L2));
   }
 
 
