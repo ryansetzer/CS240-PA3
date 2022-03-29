@@ -11,7 +11,7 @@ public class MergeSortsImproved {
   @SuppressWarnings("unchecked")
   public static <T extends Comparable<T>> void mergeSort1(T[] items) {
     // Unfortunately, it is not possible to create an array of T's, this is the workaround.
-    T[] temp = (T[]) new Comparable[items.length];
+    T[] temp = (T[]) new Comparable[items.length + 1 / 2];
     mergeSort(items, temp, 0, items.length - 1);
   }
 
@@ -71,9 +71,21 @@ public class MergeSortsImproved {
    * fallback method used by introspective sort.
    */
   public static <T extends Comparable<T>> void mergeSort2(T[] items, int start, int end) {
-
     // You will need to call the insertion sort method from BasicSorts.java:
     //   insertionSort(T[] items, int start, int end)
+    int mergeThreshold = 150;
+    if (items.length <= 1) {
+      return;
+    }
+    if (items.length <= mergeThreshold) {
+      BasicSorts.insertionSort(items);
+    } else {
+      T[] temp = (T[]) new Comparable[items.length + 1 / 2];
+      int mid = (start + end) / 2; // Select midpoint
+      mergeSort2(items, start, mid); // Mergesort first half
+      mergeSort2(items, mid + 1, end); // Mergesort second half
+      merge2(items, temp, start, mid, end);
+    }
 
 
   }
